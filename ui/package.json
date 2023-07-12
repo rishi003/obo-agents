@@ -6,6 +6,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@chakra-ui/icons": "^2.0.19",
     "@chakra-ui/next-js": "^2.1.4",
     "@chakra-ui/react": "^2.7.1",
     "@emotion/react": "^11.11.1",
@@ -13,7 +14,9 @@
     "framer-motion": "^10.12.18",
     "next": "latest",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-social-login-buttons": "^3.9.1",
+    "zustand": "^4.3.9"
   },
   "devDependencies": {
     "cypress": "^12.17.1"
