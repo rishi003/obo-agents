@@ -9,7 +9,6 @@ import {
   Input,
   InputRightElement,
   Button,
-  Text,
 } from '@chakra-ui/react';
 import { signIn } from 'next-auth/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -34,7 +33,7 @@ export default function SignIn() {
           alignItems={'start'}
           justifyContent={'center'}
           height={'100vh'}
-          mx="52"
+          mx={'52'}
           direction={'column'}
           rowGap={'8'}
         >
@@ -82,12 +81,6 @@ export default function SignIn() {
               Sign In with Github
             </Button>
           </Stack>
-          <Text fontSize={'xs'} align={'center'} width="100%">
-            {'dont have an account? '}
-            <Link href={'/auth/signup'}>
-              <Text as="b">sign up</Text>
-            </Link>
-          </Text>
         </Flex>
       </Box>
       <Box
