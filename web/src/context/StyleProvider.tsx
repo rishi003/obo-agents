@@ -1,6 +1,6 @@
 'use client';
 import { CacheProvider } from '@chakra-ui/next-js';
-import { ChakraProvider } from '@chakra-ui/react';
+import { ChakraProvider, Box } from '@chakra-ui/react';
 
 export default function StyleProvider({
   children,
@@ -9,7 +9,11 @@ export default function StyleProvider({
 }) {
   return (
     <CacheProvider>
-      <ChakraProvider>{children}</ChakraProvider>
+      <ChakraProvider>
+      <Box p={'4'} backgroundColor={'purple.600'} h="100vh">
+              {children}
+            </Box>
+      </ChakraProvider>
     </CacheProvider>
   );
 }
