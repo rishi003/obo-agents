@@ -1,7 +1,7 @@
-import NextAuth, { AuthOptions } from "next-auth";
-import GithubProvider from "next-auth/providers/github";
-import { PrismaClient } from "@prisma/client";
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import NextAuth, { AuthOptions } from 'next-auth';
+import GithubProvider from 'next-auth/providers/github';
+import { PrismaClient } from '@prisma/client';
+import { PrismaAdapter } from '@next-auth/prisma-adapter';
 
 const prisma = new PrismaClient();
 
@@ -14,7 +14,13 @@ export const authOptions: AuthOptions = {
     }),
   ],
   session: {
-    strategy: "jwt",
+    strategy: 'jwt',
+  },
+  pages: {
+    signIn: '/auth/signin',
+    signOut: '/auth/signout',
+    error: '/auth/error', // Error code passed in query string as ?error=
+    verifyRequest: '/auth/verify-request', // (used for check email message)
   },
 };
 

@@ -1,12 +1,19 @@
-import AuthProvider from "@/context/AuthProvider";
-import "./globals.css";
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import AuthProvider from '@/context/AuthProvider';
+import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
+import StyleProvider from '@/context/StyleProvider';
+// import Font Awesome CSS
+import '@fortawesome/fontawesome-svg-core/styles.css';
 
-const inter = Inter({ subsets: ["latin"] });
+import { config } from '@fortawesome/fontawesome-svg-core';
+// Tell Font Awesome to skip adding the CSS automatically
+// since it's already imported above
+config.autoAddCss = false;
+
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: "OBO",
+  title: 'OBO',
 };
 
 export default function RootLayout({
@@ -17,7 +24,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <AuthProvider>{children}</AuthProvider>
+        <AuthProvider>
+          <StyleProvider>{children}</StyleProvider>
+        </AuthProvider>
       </body>
     </html>
   );
