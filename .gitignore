@@ -35,3 +35,6 @@
 
 # global ignore list
 .env
+
+# python cache
+__pycache__
