@@ -30,7 +30,6 @@ const SignIn = () => {
           placeholder="Email"
           leftIcon={<EnvelopeIcon height={'20'} />}
         />
-        <TextBox type="password" />
       </Stack>
       <Stack width={'100%'}>
         <Button
