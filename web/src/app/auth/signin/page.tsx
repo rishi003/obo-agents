@@ -4,81 +4,90 @@ import {
   Box,
   Heading,
   Stack,
-  InputGroup,
-  InputLeftElement,
-  Input,
-  InputRightElement,
-  Button,
+  Text,
+  useMediaQuery,
 } from '@chakra-ui/react';
 import { signIn } from 'next-auth/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import {
-  EnvelopeIcon,
-  KeyIcon,
-  EyeSlashIcon,
-  EyeIcon,
-} from '@heroicons/react/24/outline';
-import { useState } from 'react';
-import Link from 'next/link';
+  faGithub,
+  faMicrosoft,
+  faGoogle,
+} from '@fortawesome/free-brands-svg-icons';
+import { EnvelopeIcon } from '@heroicons/react/24/outline';
 import { useSearchParams } from 'next/navigation';
+import Button from '@/components/Button';
+import TextBox from '@/components/TextBox';
 export default function SignIn() {
-  const [visible, setVisible] = useState(false);
   const searchParams = useSearchParams();
   const callbackUrl = (searchParams.get('callbackUrl') as string) ?? '/';
+  const [isMobile] = useMediaQuery('(max-width: 768px)');
   return (
     <Flex direction={'row'}>
-      <Box width={'35vw'}>
+      <Box
+        width={{
+          xl: '38vw',
+          lg: '68vw',
+          md: '100vw',
+          sm: '100vw',
+          xs: '100vw',
+        }}
+      >
         <Flex
           alignItems={'start'}
           justifyContent={'center'}
           height={'100vh'}
-          mx={'52'}
+          mx={isMobile ? '8' : '52'}
           direction={'column'}
           rowGap={'8'}
         >
           <Heading>Log In</Heading>
           <Stack width={'100%'}>
-            <InputGroup>
-              <InputLeftElement pointerEvents="none">
-                <EnvelopeIcon height={'20'} />
-              </InputLeftElement>
-              <Input type="email" placeholder="Email" />
-            </InputGroup>
-            <InputGroup>
-              <InputLeftElement pointerEvents="none">
-                <KeyIcon height={'20'} />
-              </InputLeftElement>
-              <InputRightElement
-                onClick={() => setVisible((visible) => !visible)}
-              >
-                {visible ? (
-                  <EyeSlashIcon height={'20'} />
-                ) : (
-                  <EyeIcon height={'20'} />
-                )}
-              </InputRightElement>
-              <Input
-                type={visible ? 'text' : 'password'}
-                placeholder="Password"
-              />
-            </InputGroup>
+            <TextBox
+              type="email"
+              placeholder="Email"
+              leftIcon={<EnvelopeIcon height={'20'} />}
+            />
+            <TextBox type="password" />
           </Stack>
           <Stack width={'100%'}>
-            <Button background={'purple.600'} color={'white'}>
+            <Button
+              type={'outline'}
+              onClick={() => {
+                console.log('click');
+              }}
+            >
               Log In
             </Button>
+            <Text align={'center'} fontWeight={'bold'}>
+              or
+            </Text>
             <Button
               leftIcon={<FontAwesomeIcon icon={faGithub} />}
-              background={'white'}
-              color={'black'}
-              border={'1px'}
-              borderColor={'gray.200'}
+              type={'solid'}
               onClick={() => {
                 signIn('github', { callbackUrl: callbackUrl });
               }}
             >
               Sign In with Github
+            </Button>
+            <Button
+              leftIcon={<FontAwesomeIcon icon={faMicrosoft} />}
+              type={'solid'}
+              onClick={() => {
+                signIn('github', { callbackUrl: callbackUrl });
+              }}
+            >
+              Sign In with Microsoft
+            </Button>
+            <Button
+              leftIcon={<FontAwesomeIcon icon={faGoogle} />}
+              type={'solid'}
+              onClick={() => {
+                signIn('github', { callbackUrl: callbackUrl });
+              }}
+            >
+              Sign In with Google
             </Button>
           </Stack>
         </Flex>
@@ -90,6 +99,7 @@ export default function SignIn() {
         bgRepeat="no-repeat"
         width={'65vw'}
         height={'100vh'}
+        display={isMobile ? 'none' : 'block'}
       >
         <Box></Box>
       </Box>
