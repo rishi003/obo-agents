@@ -1,13 +1,6 @@
 'use client';
-import {
-  Flex,
-  Box,
-  Heading,
-  Stack,
-  Text,
-  useMediaQuery,
-} from '@chakra-ui/react';
-import { signIn } from 'next-auth/react';
+import { Heading, Stack, Text } from '@chakra-ui/react';
+import { signIn, useSession } from 'next-auth/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faGithub,
@@ -15,12 +8,19 @@ import {
   faGoogle,
 } from '@fortawesome/free-brands-svg-icons';
 import { EnvelopeIcon } from '@heroicons/react/24/outline';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Button from '@/components/Button';
 import TextBox from '@/components/TextBox';
+import { useState } from 'react';
 const SignIn = () => {
+  const [email, setEmail] = useState('');
+  const { status: status } = useSession();
+  const router = useRouter();
   const searchParams = useSearchParams();
   const callbackUrl = (searchParams.get('callbackUrl') as string) ?? '/';
+  if (status === 'authenticated') {
+    router.push(callbackUrl);
+  }
   return (
     <>
       <Heading>Log In</Heading>
@@ -28,39 +28,23 @@ const SignIn = () => {
         <TextBox
           type="email"
           placeholder="Email"
+          name="email"
           leftIcon={<EnvelopeIcon height={'20'} />}
+          onChange={(value) => setEmail(value)}
         />
-      </Stack>
-      <Stack width={'100%'}>
         <Button
           type={'outline'}
           onClick={() => {
-            console.log('click');
+            signIn('email', { email });
           }}
         >
           Log In
         </Button>
-        <Text align={'center'} fontWeight={'bold'}>
-          or
-        </Text>
-        <Button
-          leftIcon={<FontAwesomeIcon icon={faGithub} />}
-          type={'solid'}
-          onClick={() => {
-            signIn('github', { callbackUrl: callbackUrl });
-          }}
-        >
-          Sign In with Github
-        </Button>
-        <Button
-          leftIcon={<FontAwesomeIcon icon={faMicrosoft} />}
-          type={'solid'}
-          onClick={() => {
-            signIn('github', { callbackUrl: callbackUrl });
-          }}
-        >
-          Sign In with Microsoft
-        </Button>
+      </Stack>
+      <Text align={'center'} fontWeight={'bold'} w={'100%'}>
+        or
+      </Text>
+      <Stack width={'100%'}>
         <Button
           leftIcon={<FontAwesomeIcon icon={faGoogle} />}
           type={'solid'}
@@ -69,6 +53,24 @@ const SignIn = () => {
           }}
         >
           Sign In with Google
+        </Button>
+        <Button
+          leftIcon={<FontAwesomeIcon icon={faMicrosoft} />}
+          type={'solid'}
+          onClick={() => {
+            signIn('github', { callbackUrl: callbackUrl });
+          }}
+        >
+          Sign In with Outlook
+        </Button>
+        <Button
+          leftIcon={<FontAwesomeIcon icon={faGithub} />}
+          type={'solid'}
+          onClick={() => {
+            signIn('github', { callbackUrl: callbackUrl });
+          }}
+        >
+          Sign In with Github
         </Button>
       </Stack>
     </>
