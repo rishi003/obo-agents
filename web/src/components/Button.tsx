@@ -5,7 +5,8 @@ export default function Button(props: {
   rightIcon?: any;
   type: 'solid' | 'outline';
   children: any;
-  onClick: MouseEventHandler;
+  isSubmit?: boolean;
+  onClick?: MouseEventHandler;
 }) {
   return (
     <ChakraButton
@@ -22,7 +23,8 @@ export default function Button(props: {
         color: props.type === 'solid' ? 'blackAlpha.800' : 'white',
         borderColor: props.type === 'solid' ? 'blackAlpha.800' : '',
       }}
-      onClick={props.onClick}
+      onClick={props.onClick ? props.onClick : undefined}
+      type={props.isSubmit ? 'submit' : 'button'}
     >
       {props.children}
     </ChakraButton>
