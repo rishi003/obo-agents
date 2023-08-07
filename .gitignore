@@ -38,3 +38,6 @@
 
 # python cache
 __pycache__
+
+# SQLite Database
+obo-agents.db
