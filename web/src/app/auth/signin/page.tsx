@@ -35,7 +35,7 @@ const SignIn = () => {
         <Button
           type={'outline'}
           onClick={() => {
-            signIn('email', { email });
+            signIn('email', { email, callbackUrl });
           }}
         >
           Log In

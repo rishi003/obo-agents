@@ -27,14 +27,6 @@ model Account {
   @@unique([provider, providerAccountId])
 }
 
-model Session {
-  id           String   @id @default(cuid())
-  sessionToken String   @unique
-  userId       String
-  expires      DateTime
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
 model User {
   id            String    @id @default(cuid())
   name          String?
@@ -42,7 +34,8 @@ model User {
   emailVerified DateTime?
   image         String?
   accounts      Account[]
-  sessions      Session[]
+  messages      Message[]
+  participants  Participant[]
 }
 
 model VerificationToken {
@@ -51,4 +44,28 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model Chat {
+  id           String @id @default(uuid())
+  name         String
+  messages     Message[]
+  participants Participant[]
+}
+
+model Message {
+  id      String @id @default(uuid())
+  userId  String
+  chatId  String
+  content String
+  user    User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  chat    Chat @relation(fields: [chatId], references: [id], onDelete: Cascade)
+}
+
+model Participant {
+  id      String @id @default(uuid())
+  userId  String
+  chatId  String
+  user    User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  chat    Chat @relation(fields: [chatId], references: [id], onDelete: Cascade)
 }
