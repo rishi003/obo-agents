@@ -1,7 +1,8 @@
 from sqlalchemy import create_engine
 from app.logger import logger
+from app.config import Config
 
-database_url = "sqlite:///obo-agents.db"
+database_url = Config.DATABASE_URL
 engine = None
 
 def connect_db():

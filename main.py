@@ -5,12 +5,14 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 from app.controllers.agent import router as agent_router
+from app.controllers.document import router as document_router
 from app.logger import logger
 from app.models.base_model import DBBaseModel
+from app.config import Config
 
 app = FastAPI()
 
-database_url = "sqlite:///obo-agents.db"
+database_url = Config.DATABASE_URL
 
 engine = create_engine(database_url)
 
@@ -32,6 +34,7 @@ app.add_middleware(
 DBBaseModel.metadata.create_all(bind=engine, checkfirst=True)
 
 app.include_router(agent_router, prefix="/agents")
+app.include_router(document_router, prefix="/documents")
 
 @app.on_event("startup")
 async def startup_event():
