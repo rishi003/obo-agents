@@ -41,3 +41,6 @@ __pycache__
 
 # SQLite Database
 obo-agents.db
+
+# Docstore Directory
+/app/docstore
