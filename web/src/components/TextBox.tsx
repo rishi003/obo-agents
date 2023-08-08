@@ -11,7 +11,9 @@ import { useState } from 'react';
 
 export default function TextBox(props: {
   isInValid?: boolean;
-  type: 'email' | 'password';
+  type: 'email' | 'password' | 'text';
+  name: string;
+  onChange?: (value: string) => void;
   placeholder?: string;
   leftIcon?: any;
   rightIcon?: any;
@@ -46,6 +48,10 @@ export default function TextBox(props: {
             errorBorderColor="crimson"
             onFocus={onFocusChange}
             onBlur={onFocusChange}
+            onChange={(e) => {
+              props.onChange?.(e.target.value);
+            }}
+            name={props.name}
           />
         </InputGroup>
         {props.isInValid && errorTextVisible ? (
@@ -72,6 +78,10 @@ export default function TextBox(props: {
             errorBorderColor="crimson"
             onFocus={onFocusChange}
             onBlur={onFocusChange}
+            name={props.name}
+            onChange={(e) => {
+              props.onChange?.(e.target.value);
+            }}
           />
         </InputGroup>
         {props.isInValid && errorTextVisible ? (

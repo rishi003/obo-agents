@@ -60,13 +60,16 @@ function SideNavItem({
       alignItems={'center'}
       gap={2}
       borderRadius={'md'}
-      backgroundColor={isActive ? 'whiteAlpha.400' : ''}
+      backgroundColor={isActive ? 'black' : ''}
       py={'2'}
       px={'4'}
       cursor={'pointer'}
+      _hover={{
+        backgroundColor: isActive ? '' : 'blackAlpha.300',
+      }}
     >
-      <FontAwesomeIcon icon={icon} color="white" />
-      <Text color="white">{text}</Text>
+      <FontAwesomeIcon icon={icon} color={isActive ? 'white' : 'black'} />
+      <Text color={isActive ? 'white' : 'black'}>{text}</Text>
     </Flex>
   );
 }
