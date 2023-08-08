@@ -4,5 +4,6 @@ langchain==0.0.247
 openai==0.27.7
 pydantic
 python-dotenv
+python-multipart
 tiktoken==0.4.0
 uvicorn==0.23.2
