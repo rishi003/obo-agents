@@ -9,16 +9,12 @@ from pydantic import BaseModel
 from sqlalchemy import or_
 from app.models.agent import Agent
 
-router = APIRouter()
+router = APIRouter(tags=["Agents"])
 
 class AgentOut(BaseModel):
-    id: int
     name: str
     user_id: str
     agent_id: str
-    created_at: datetime
-    updated_at: datetime
-
     class Config:
         orm_mode = True
 
@@ -26,7 +22,6 @@ class AgentOut(BaseModel):
 class AgentIn(BaseModel):
     name: str
     user_id: str
-
     class Config:
         orm_mode = True
 
