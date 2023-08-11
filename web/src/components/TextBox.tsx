@@ -1,3 +1,4 @@
+import * as React from 'react';
 import {
   Flex,
   Input,
@@ -26,18 +27,28 @@ export default function TextBox(props: {
     setErrorTextVisible((errorTextVisible) => !errorTextVisible);
   };
 
+  const leftIcon = React.cloneElement(props.leftIcon, {
+    height: 23,
+  });
+
+  const rightIcon =
+    props.rightIcon &&
+    React.cloneElement(props.rightIcon, {
+      height: 23,
+    });
+
   if (props.type === 'password') {
     return (
       <Flex direction={'column'}>
         <InputGroup>
           <InputLeftElement pointerEvents="none">
-            <KeyIcon height={'20'} />
+            <KeyIcon height={'23'} />
           </InputLeftElement>
           <InputRightElement onClick={() => setVisible((visible) => !visible)}>
             {visible ? (
-              <EyeSlashIcon height={'20'} />
+              <EyeSlashIcon height={'23'} />
             ) : (
-              <EyeIcon height={'20'} />
+              <EyeIcon height={'23'} />
             )}
           </InputRightElement>
           <Input
@@ -66,8 +77,8 @@ export default function TextBox(props: {
       <Flex direction={'column'}>
         <InputGroup>
           {props.leftIcon ? (
-            <InputLeftElement pointerEvents="none">
-              {props.leftIcon}
+            <InputLeftElement pointerEvents="none" py={'6'}>
+              {leftIcon}
             </InputLeftElement>
           ) : null}
           <Input
@@ -82,6 +93,7 @@ export default function TextBox(props: {
             onChange={(e) => {
               props.onChange?.(e.target.value);
             }}
+            py={'6'}
           />
         </InputGroup>
         {props.isInValid && errorTextVisible ? (
