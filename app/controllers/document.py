@@ -207,12 +207,16 @@ def delete_document(document_id: str):
     
     save_directory = get_root_input_dir(document.agent_id)
     file_name = f"{document.id}.{document.type}"
-    file_path = os.path.join(save_directory, file_name)
-    os.remove(file_path)
+    abs_file_path = os.path.join(save_directory, file_name)
+    if not abs_file_path.is_file():
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="File not found")
+    os.remove(abs_file_path)
     
     # Delete document from database
     db.session.query(Document).filter(Document.id == document_id).delete()
     db.session.commit()
     db.session.flush()
+    
+    # ingest_document.delay(agent_id, document.id)
     
     return {"success": True}
