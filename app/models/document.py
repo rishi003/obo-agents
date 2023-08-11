@@ -9,7 +9,7 @@ class Document(DBBaseModel):
         id (String): The primary key of the resource.
         name (String): The name of the resource.
         size (Integer): The size of the resource.
-        type (String): The type of the resource (e.g., application/pdf).
+        type (String): The type of the resource (e.g., pdf, txt, docx).
         agent_id (String): The ID of the agent associated with the resource.
     """
 

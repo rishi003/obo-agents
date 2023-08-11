@@ -7,11 +7,11 @@ class Agent(DBBaseModel):
     Represents an agent entity.
 
     Attributes:
-        id (int): The unique identifier.
-        name (str): The name of the agent.
-        user_id (str): The identifier of the associated user.
-        agent_id (str): The identifier of the agent.
-        is_deleted (bool): The flag associated for agent deletion
+        id (Integer): The unique identifier.
+        name (String): The name of the agent.
+        user_id (String): The identifier of the associated user.
+        agent_id (String): The identifier of the agent.
+        is_deleted (Boolean): The flag associated for agent deletion
     """
 
     __tablename__ = 'agents'
