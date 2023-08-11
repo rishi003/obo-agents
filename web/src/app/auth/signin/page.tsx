@@ -2,11 +2,7 @@
 import { Heading, Stack, Text } from '@chakra-ui/react';
 import { signIn, useSession } from 'next-auth/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faGithub,
-  faMicrosoft,
-  faGoogle,
-} from '@fortawesome/free-brands-svg-icons';
+import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import { EnvelopeIcon } from '@heroicons/react/24/outline';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Button from '@/components/Button';
@@ -29,7 +25,7 @@ const SignIn = () => {
           type="email"
           placeholder="Email"
           name="email"
-          leftIcon={<EnvelopeIcon height={'20'} />}
+          leftIcon={<EnvelopeIcon height={'23'} />}
           onChange={(value) => setEmail(value)}
         />
         <Button
@@ -45,24 +41,6 @@ const SignIn = () => {
         or
       </Text>
       <Stack width={'100%'}>
-        <Button
-          leftIcon={<FontAwesomeIcon icon={faGoogle} />}
-          type={'solid'}
-          onClick={() => {
-            signIn('github', { callbackUrl: callbackUrl });
-          }}
-        >
-          Sign In with Google
-        </Button>
-        <Button
-          leftIcon={<FontAwesomeIcon icon={faMicrosoft} />}
-          type={'solid'}
-          onClick={() => {
-            signIn('github', { callbackUrl: callbackUrl });
-          }}
-        >
-          Sign In with Outlook
-        </Button>
         <Button
           leftIcon={<FontAwesomeIcon icon={faGithub} />}
           type={'solid'}
