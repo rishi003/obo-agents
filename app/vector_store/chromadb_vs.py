@@ -31,7 +31,8 @@ class ChromaDB(VectorStore):
         Args:
         collection_name: The name of the collection to create.
         """
-        return self.client.get_or_create_collection(name=collection_name)
+        return self.client.get_or_create_collection(name=collection_name,
+                                                    metadata={"hnsw:space": "cosine"})
 
     def add_texts(
             self,
@@ -46,16 +47,10 @@ class ChromaDB(VectorStore):
         if namespace is None:
             namespace = self.namespace
 
-        metadatas = []
         ids = ids or [str(uuid.uuid4()) for _ in texts]
         if len(ids) < len(texts):
             raise ValueError("Number of ids must match number of texts.")
 
-        if not metadatas:
-            for text, _ in zip(texts, ids):
-                metadata = {}
-                metadata[self.text_field] = text
-                metadatas.append(metadata)
         embeddings = self.embedding_model.get_embedding_docs(texts)
         self.collection.add(
             documents=texts,
@@ -89,7 +84,7 @@ class ChromaDB(VectorStore):
                 results["metadatas"][0]):
             documents.append(
                 Document(
-                    text_content=text,
+                    page_content=text,
                     metadata=metadata
                 )
             )
@@ -104,6 +99,6 @@ class ChromaDB(VectorStore):
     def add_embeddings_to_vector_db(self, embeddings: dict) -> None:
         pass
 
-    def delete_embeddings_from_vector_db(self, ids: List[str], where: Dict | None = None) -> None:
+    def delete_embeddings_from_vector_db(self, ids: List[str] | None = None, where: Dict | None = None) -> None:
         """Delete embeddings from the vector store."""
         self.collection.delete(ids=ids, where=where)

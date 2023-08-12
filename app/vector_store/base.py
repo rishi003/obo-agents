@@ -20,7 +20,7 @@ class VectorStore(ABC):
     def add_documents(self, documents: List[Document], **kwargs: Any) -> List[str]:
         """Run more documents through the embeddings and add to the vectorstore.
         """
-        texts = [doc.text_content for doc in documents]
+        texts = [doc.page_content for doc in documents]
         metadatas = [doc.metadata for doc in documents]
         return self.add_texts(texts, metadatas, **kwargs)
     
