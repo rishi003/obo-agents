@@ -19,7 +19,7 @@ beat_schedule = {
 app.conf.beat_schedule = beat_schedule
 
 @app.task(name="add_document", autoretry_for=(Exception,), retry_backoff=2, max_retries=5, serializer='pickle')
-def add_document(agent_id: str, document_id: str):
+def add_document(user_id: str, document_id: str):
     """Add a document in background."""
     from app.document_manager.document_loader import DocLoader
     from app.vector_store.embedding.hf_emb import HuggingfaceEmbedding
@@ -30,7 +30,7 @@ def add_document(agent_id: str, document_id: str):
     session = Session()
 
     embedding_model = HuggingfaceEmbedding()
-    vector_store = ChromaDB(collection_name=agent_id,
+    vector_store = ChromaDB(collection_name=user_id,
                             embedding_model=embedding_model,
                             text_field="text_content")
     docs = DocLoader(session, document_id).load_document()
@@ -40,11 +40,11 @@ def add_document(agent_id: str, document_id: str):
         metadatas.append(doc.metadata)
     vector_store.add_texts(texts=texts, metadatas=metadatas)
 
-    logger.info("Adding documents:" + agent_id + "," + document_id)
+    logger.info("Adding documents:" + user_id + "," + document_id)
     session.close()
 
 @app.task(name="remove_document", autoretry_for=(Exception,), retry_backoff=2, max_retries=5, serializer='pickle')
-def remove_document(agent_id: str, document_id: str):
+def remove_document(user_id: str, document_id: str):
     """Delete a document in background."""
     from app.vector_store.embedding.hf_emb import HuggingfaceEmbedding
     from app.vector_store.chromadb_vs import ChromaDB
@@ -54,16 +54,16 @@ def remove_document(agent_id: str, document_id: str):
     session = Session()
 
     embedding_model = HuggingfaceEmbedding()
-    vector_store = ChromaDB(collection_name=agent_id,
+    vector_store = ChromaDB(collection_name=user_id,
                             embedding_model=embedding_model,
                             text_field="text_content")
     vector_store.delete_embeddings_from_vector_db(where={"document_id": document_id})
 
-    logger.info("Deleting documents:" + agent_id + "," + document_id)
+    logger.info("Deleting documents:" + user_id + "," + document_id)
     session.close()
 
 @app.task(name="patch_document", autoretry_for=(Exception,), retry_backoff=2, max_retries=5, serializer='pickle')
-def patch_document(agent_id: str, document_id: str):
+def patch_document(user_id: str, document_id: str):
     """Update a document in background."""
     from app.document_manager.document_loader import DocLoader
     from app.vector_store.embedding.hf_emb import HuggingfaceEmbedding
@@ -74,7 +74,7 @@ def patch_document(agent_id: str, document_id: str):
     session = Session()
 
     embedding_model = HuggingfaceEmbedding()
-    vector_store = ChromaDB(collection_name=agent_id,
+    vector_store = ChromaDB(collection_name=user_id,
                             embedding_model=embedding_model,
                             text_field="text_content")
     vector_store.delete_embeddings_from_vector_db(where={"document_id": document_id})
@@ -86,5 +86,5 @@ def patch_document(agent_id: str, document_id: str):
     vector_store.add_texts(texts=texts, metadatas=metadatas)
 
 
-    logger.info("Updating documents:" + agent_id + "," + document_id)
+    logger.info("Updating documents:" + user_id + "," + document_id)
     session.close()

@@ -4,6 +4,7 @@ from fastapi_sqlalchemy import DBSessionMiddleware
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
+from app.controllers.user import router as user_router
 from app.controllers.agent import router as agent_router
 from app.controllers.document import router as document_router
 from app.logger import logger
@@ -33,6 +34,7 @@ app.add_middleware(
 
 DBBaseModel.metadata.create_all(bind=engine, checkfirst=True)
 
+app.include_router(user_router, prefix="/users")
 app.include_router(agent_router, prefix="/agents")
 app.include_router(document_router, prefix="/documents")
 
@@ -43,7 +45,3 @@ async def startup_event():
     Session = sessionmaker(bind=engine)
     session = Session()
     session.close()
-
-@app.get("/hello/{name}")
-async def say_hello(name: str):
-    return {"message": f"Hello {name}"}

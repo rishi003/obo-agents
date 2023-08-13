@@ -12,16 +12,16 @@ from app.models.agent import Agent
 router = APIRouter(tags=["Agents"])
 
 class AgentOut(BaseModel):
+    id: str
     name: str
-    user_id: str
-    agent_id: str
+    userId: str
     class Config:
         orm_mode = True
 
 
 class AgentIn(BaseModel):
     name: str
-    user_id: str
+    userId: str
     class Config:
         orm_mode = True
 
@@ -37,7 +37,7 @@ def create_agent(agent: AgentIn):
             agent (Agent): An object representing the Agent to be created.
                 Contains the following attributes:
                 - name (str): Name of the Agent
-                - user_id (str): Identifier of the associated user
+                - userId (str): Identifier of the associated user
 
         Returns:
             Agent: An object of Agent representing the created Agent.
@@ -45,12 +45,12 @@ def create_agent(agent: AgentIn):
         Raises:
             HTTPException (Status Code=409): If an Agent for user already exists
     """
-    user = db.session.query(Agent).filter(Agent.user_id == agent.user_id).first()
+    user = db.session.query(Agent).filter(Agent.userId == agent.userId).first()
 
     if user:
         raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Agent for the user already exists")
 
-    db_agent = Agent(name=agent.name, user_id=agent.user_id, agent_id=str(uuid.uuid4()))
+    db_agent = Agent(id=str(uuid.uuid4()), name=agent.name, userId=agent.userId)
     db.session.add(db_agent)
     db.session.commit()
     return db_agent
@@ -72,7 +72,7 @@ def get_agent(agent_id: str):
     """
 
     if (db_agent := db.session.query(Agent)
-            .filter(Agent.agent_id == agent_id, or_(Agent.is_deleted == False, Agent.is_deleted is None))
+            .filter(Agent.id == agent_id, or_(Agent.isDeleted == False, Agent.isDeleted is None))
             .first()):
         return db_agent
     else:
@@ -95,12 +95,12 @@ def delete_agent(agent_id: str):
             HTTPException (Status Code=404): If the Agent is not found or deleted already.
     """
 
-    db_agent = db.session.query(Agent).filter(Agent.agent_id == agent_id).first()
+    db_agent = db.session.query(Agent).filter(Agent.id == agent_id).first()
 
-    if not db_agent or db_agent.is_deleted:
+    if not db_agent or db_agent.isDeleted:
         raise HTTPException(status_code=404, detail="Agent not found or already deleted")
 
     # Deletion Procedure
-    db_agent.is_deleted = True
+    db_agent.isDeleted = True
     db.session.commit()
     return {"success": True}

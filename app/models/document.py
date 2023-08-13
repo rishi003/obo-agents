@@ -3,30 +3,29 @@ from app.models.base_model import DBBaseModel
 
 class Document(DBBaseModel):
     """
-    Model representing a resource.
+    Model representing a document.
 
     Attributes:
-        id (String): The primary key of the resource.
-        name (String): The name of the resource.
-        size (Integer): The size of the resource.
-        type (String): The type of the resource (e.g., pdf, txt, docx).
-        agent_id (String): The ID of the agent associated with the resource.
+        id (String): The identifier of the document.
+        userId (String): The identifier of the associated user.
+        name (String): The name of the document.
+        location (String): The location of the document.
+        type (String): The type of the document (e.g., pdf, txt, docx).
     """
 
     __tablename__ = 'documents'
 
     id = Column(String, primary_key=True)
+    userId = Column(String)
     name = Column(String)
-    size = Column(Integer)
+    location = Column(String)
     type = Column(String)
-    agent_id = Column(String)
 
     def __repr__(self):
         """
-        Returns a string representation of the Resource object.
+        Returns a string representation of the document object.
 
         Returns:
-            str: String representation of the Resource object.
+            str: String representation of the document object.
         """
-
-        return f"Resource(id={self.id}, name='{self.name}', size='{self.size}', type='{self.type}', agent_id={self.agent_id}"
+        return f"Document(id={self.id}, userId={self.userId}, name='{self.name}', location='{self.location}', type='{self.type}'"

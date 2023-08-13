@@ -13,10 +13,7 @@ class DocLoader:
     def __init__(self, db_session, document_id):
         self.document_id = document_id
         document = db_session.query(Document).filter(Document.id == document_id).first()
-        download_file_path = get_root_input_dir(document.agent_id)
-        file_name = f"{document.id}.{document.type}"
-        abs_file_path = Path(os.path.join(download_file_path, file_name)).resolve()
-        self.path = str(abs_file_path)
+        self.path = str(document.location)
         self.splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=100)
 
     def load_document(self) -> list:

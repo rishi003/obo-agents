@@ -7,20 +7,18 @@ class Agent(DBBaseModel):
     Represents an agent entity.
 
     Attributes:
-        id (Integer): The unique identifier.
+        id (String): The unique identifier.
+        userId (String): The identifier of the associated user.
         name (String): The name of the agent.
-        user_id (String): The identifier of the associated user.
-        agent_id (String): The identifier of the agent.
-        is_deleted (Boolean): The flag associated for agent deletion
+        isDeleted (Boolean): The flag associated for agent deletion
     """
 
     __tablename__ = 'agents'
 
-    id = Column(Integer, primary_key=True, autoincrement=True)
+    id = Column(String, primary_key=True)
+    userId = Column(String)
     name = Column(String)
-    user_id = Column(String)
-    agent_id = Column(String)
-    is_deleted = Column(Boolean, default = False)
+    isDeleted = Column(Boolean, default = False)
 
     def __repr__(self):
         """
@@ -30,19 +28,19 @@ class Agent(DBBaseModel):
             str: String representation of the Agent.
 
         """
-        return f"Agent(id={self.id}, name='{self.name}', user_id={self.user_id}, " \
-               f"agent_id={self.agent_id}, is_deleted='{self.is_deleted}')"
+        return f"Agent(id={self.id}, userId={self.userId}, name='{self.name}', " \
+               f"is_deleted='{self.isDeleted}')"
 
     @classmethod
-    def get_agent_from_id(cls, session, agent_id):
+    def get_agent_from_id(cls, session, id):
         """
-            Get Agent from agent_id
+            Get Agent from id
 
             Args:
                 session: The database session.
-                agent_id(int) : Unique identifier of an Agent.
+                id(str) : Unique identifier of an Agent.
 
             Returns:
                 Agent: Agent object is returned.
         """
-        return session.query(Agent).filter(Agent.agent_id == agent_id).first()
+        return session.query(Agent).filter(Agent.id == id).first()
