@@ -6,6 +6,7 @@ import chromadb
 from app.vector_store.base import VectorStore
 from app.vector_store.document import Document
 from app.vector_store.embedding.base import BaseEmbedding
+from app.config import Config
 
 def _build_chroma_client():
     return chromadb.PersistentClient()
@@ -60,7 +61,7 @@ class ChromaDB(VectorStore):
         )
         return ids
 
-    def get_matching_text(self, query: str, top_k: int = 5,
+    def get_matching_text(self, query: str, top_k: int = Config.VECTOR_STORE_TOPK,
                           metadata: Optional[dict] = None, **kwargs: Any) -> List[Document]:
         """Return docs most similar to query using specified search type."""
         if metadata is None:
@@ -75,7 +76,6 @@ class ChromaDB(VectorStore):
             n_results=top_k,
             where=filters
         )
-        print(results)
         documents = []
 
         for node_id, text, metadata in zip(

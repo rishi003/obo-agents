@@ -7,6 +7,7 @@ from fastapi_sqlalchemy import db
 
 from app.models.document import Document
 from app.utils.utils import get_root_input_dir
+from app.config import Config
 
 class DocLoader:
     """A class for loading documents."""
@@ -14,7 +15,8 @@ class DocLoader:
         self.document_id = document_id
         document = db_session.query(Document).filter(Document.id == document_id).first()
         self.path = str(document.location)
-        self.splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=100)
+        self.splitter = RecursiveCharacterTextSplitter(chunk_size=Config.SPLIT_CHUNK_SIZE,
+                                                       chunk_overlap=Config.SPLIT_CHUNK_OVERLAP)
 
     def load_document(self) -> list:
         """Load a document."""
