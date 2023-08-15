@@ -1,5 +1,5 @@
 from app.llms.openai_llm import load_llm
-from app.prompts.summarize import summarize_prompt
+from app.agent.prompts.summarize import summarize_prompt
 
 def test_summarize():
     role = "buyer"

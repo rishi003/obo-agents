@@ -27,13 +27,14 @@ def test_chroma():
         "The sky is blue",
         "The sun is shining"
     ]
-    # ids = chroma_db.add_texts(docs)
+    metadatas = [{"test_field": "1"} for _ in docs]
+    # ids = chroma_db.add_texts(docs, metadatas)
     matching_docs = chroma_db.get_matching_text("A man is playing the guitar")
     print(matching_docs)
-    assert docs[0] in [doc.page_content for doc in matching_docs]
+    assert docs[0] in [doc.page_content for doc in matching_docs], "Document is not found"
     matching_docs = chroma_db.get_matching_text("The sky is yellow")
     print(matching_docs)
-    assert docs[2] in [doc.page_content for doc in matching_docs]
+    assert docs[2] in [doc.page_content for doc in matching_docs], "Document is not found"
     
 def test_chroma_deletion():
     embedding_model = HuggingfaceEmbedding()

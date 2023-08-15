@@ -7,5 +7,5 @@ class Document(BaseModel):
     page_content: str = None
     metadata: dict = Field(default_factory=dict)
 
-    def __init__(self, page_content, *args, **kwargs):
-        super().__init__(text_content=page_content, *args, **kwargs)
+    def __init__(self, page_content, metadata, *args, **kwargs):
+        super().__init__(page_content=page_content, metadata=metadata, *args, **kwargs)

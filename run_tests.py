@@ -11,8 +11,8 @@ if __name__ == "__main__":
 
     # test_hf_emb()
 
-    # test_chroma()
+    test_chroma()
 
-    test_chroma_deletion()
+    # test_chroma_deletion()
 
     # test_doc_loader()
