@@ -1,4 +1,14 @@
+celery==5.3.1
+chromadb==0.4.5
+docx2txt
+fastapi==0.99.1
+FastAPI-SQLAlchemy==0.2.1
 langchain==0.0.247
 openai==0.27.7
-python-dotenv
+pydantic
+pypdf
+python-dotenv==1.0.0
+python-multipart
+sentence-transformers==2.2.2
 tiktoken==0.4.0
+uvicorn==0.23.2

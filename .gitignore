@@ -38,3 +38,10 @@
 
 # python cache
 __pycache__
+
+# SQLite and Vector Database
+obo-agents.db
+chroma/
+
+# Docstore Directory
+/app/docstore
