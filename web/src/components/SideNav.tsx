@@ -9,6 +9,7 @@ import {
   faRepeat,
 } from '@fortawesome/free-solid-svg-icons';
 import { usePathname } from 'next/navigation';
+import Link from 'next/link';
 
 export default function SideNav() {
   const pathname = usePathname();
@@ -18,26 +19,31 @@ export default function SideNav() {
       <Stack gap={4}>
         <SideNavItem
           text={'Dashboard'}
+          link={'/'}
           icon={faChartBar}
           isActive={pathname === '/'}
         />
         <SideNavItem
           text={'Tool Chain'}
+          link={'/tool-chain'}
           icon={faWrench}
           isActive={pathname === '/tool-chain'}
         />
         <SideNavItem
           text={'Workflows'}
+          link={'/workflows'}
           icon={faCubesStacked}
           isActive={pathname === '/workflows'}
         />
         <SideNavItem
           text={'Knowledge Bases'}
+          link={'/knowledge-bases'}
           icon={faBookmark}
           isActive={pathname === '/knowledge-bases'}
         />
         <SideNavItem
           text={'Interactions'}
+          link={'/interactions'}
           icon={faRepeat}
           isActive={pathname === '/interactions'}
         />
@@ -48,10 +54,12 @@ export default function SideNav() {
 
 function SideNavItem({
   text,
+  link,
   icon,
   isActive,
 }: {
   text: string;
+  link :string
   icon: any;
   isActive?: boolean;
 }) {
@@ -69,7 +77,9 @@ function SideNavItem({
       }}
     >
       <FontAwesomeIcon icon={icon} color={isActive ? 'white' : 'black'} />
-      <Text color={isActive ? 'white' : 'black'}>{text}</Text>
+      <Link href={link}>
+        <Text color={isActive ? 'white' : 'black'}>{text}</Text>
+      </Link>
     </Flex>
   );
 }
