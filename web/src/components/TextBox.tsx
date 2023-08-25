@@ -27,7 +27,7 @@ export default function TextBox(props: {
     setErrorTextVisible((errorTextVisible) => !errorTextVisible);
   };
 
-  const leftIcon = React.cloneElement(props.leftIcon, {
+  const leftIcon = props.leftIcon && React.cloneElement(props.leftIcon, {
     height: 23,
   });
 
