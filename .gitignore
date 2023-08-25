@@ -40,8 +40,8 @@
 __pycache__
 
 # SQLite and Vector Database
-obo-agents.db
-chroma/
+app/obo-agents.db
+app/chroma/
 
 # Docstore Directory
-/app/docstore
+/app/app/docstore
