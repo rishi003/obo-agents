@@ -20,8 +20,19 @@
 
     `python cli.py`
 
-    The app should be running locally http://localhost:8000. Swagger docs can be accessed at http://localhost:8000/docs.
+The app should be running locally http://localhost:8000. Swagger docs can be accessed at http://localhost:8000/docs.
 
-## Setting and running app through Docker
+## Setting and running app through Docker Compose
 
-ToDo
+1. Update the MQTT Brocker and Backend URL in *app/config.py* file by changing localhost url to rabbitmq url
+
+    ```
+    MQTT_BROKER_URL = "amqp://rabbitmq"
+    MQTT_BACKEND_URL = "rpc://rabbitmq"
+    ```
+
+2. Start the app
+
+    `docker compose up`
+
+The app should be running locally http://localhost:8000. Swagger docs can be accessed at http://localhost:8000/docs.

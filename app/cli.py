@@ -25,7 +25,7 @@ def check_command(command, message):
 
 
 def run_server(shell=False):
-    api_process = Process(target=subprocess.run, args=(["uvicorn", "main:app", "--host", "localhost", "--port", "8000"],), kwargs={"shell": shell})
+    api_process = Process(target=subprocess.run, args=(["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"],), kwargs={"shell": shell})
     celery_process = Process(target=subprocess.run, args=(["celery", "-A", "app.worker", "worker", "--loglevel=info", "--pool=solo"],), kwargs={"shell": shell})
     api_process.start()
     celery_process.start()
