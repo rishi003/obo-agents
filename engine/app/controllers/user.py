@@ -45,3 +45,25 @@ def create_user(user: UserIn):
     db.session.add(db_user)
     db.session.commit()
     return db_user
+
+@router.get("/get/{user_id}", response_model=UserOut, responses={404: {"detail": "user not found"}})
+def get_agent(user_id: str):
+    """
+        Get a user by ID
+
+        Args:
+            user_id (str): Identifier of the User to retrieve
+
+        Returns:
+            User: An object of User representing the retrieved User.
+
+        Raises:
+            HTTPException (Status Code=404): If the User is not found or deleted.
+    """
+
+    if (db_user := db.session.query(User)
+            .filter(User.id == user_id)
+            .first()):
+        return db_user
+    else:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")

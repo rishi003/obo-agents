@@ -1,12 +1,17 @@
 import { create } from 'zustand';
 import { persist, devtools } from 'zustand/middleware';
 
+interface Agent {
+  id: string;
+  name: string;
+}
+
 interface AgentState {
-  agents: any[];
-  activeAgent: any;
-  addAgent: (agent: any) => void;
-  removeAgent: (agent: any) => void;
-  setActiveAgent: (agent: any) => void;
+  agents: Agent[];
+  activeAgent: Agent | null;
+  addAgent: (agent: Agent) => void;
+  removeAgent: (id: string) => void;
+  setActiveAgent: (id: string) => void;
 }
 
 const useAgentStore = create<AgentState>()(
@@ -14,14 +19,17 @@ const useAgentStore = create<AgentState>()(
     persist(
       (set) => ({
         agents: [],
-        activeAgent: {},
+        activeAgent: null,
         addAgent: (agent) =>
           set((state) => ({ agents: [...state.agents, agent] })),
-        removeAgent: (agent) =>
+        removeAgent: (id) =>
           set((state) => ({
-            agents: state.agents.filter((a) => a.id !== agent.id),
+            agents: state.agents.filter((a) => a.id !== id),
           })),
-        setActiveAgent: (agent) => set({ activeAgent: agent }),
+        setActiveAgent: (id) =>
+          set((state) => ({
+            activeAgent: state.agents.find((a) => a.id === id),
+          })),
       }),
       { name: 'agent-store' }
     )
