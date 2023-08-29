@@ -40,7 +40,8 @@
     "react-hot-toast": "^2.4.1",
     "react-loading-skeleton": "^3.3.1",
     "typescript": "5.1.6",
-    "yup": "^1.2.0"
+    "yup": "^1.2.0",
+    "zustand": "^4.4.1"
   },
   "devDependencies": {
     "prettier": "^3.0.0",

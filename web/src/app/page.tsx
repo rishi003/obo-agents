@@ -1,11 +1,13 @@
-"use client"
-import PrimaryContainer from '@/composables/PrimaryContainer';
+'use client';
+import PrimaryContainer from '@/composables/containers/PrimaryContainer';
 import { Box } from '@chakra-ui/react';
 
 const Home = () => {
-  return (<PrimaryContainer>
-  <Box>Home</Box>
-</PrimaryContainer>)
-}
+  return (
+    <PrimaryContainer>
+      <Box>Home</Box>
+    </PrimaryContainer>
+  );
+};
 
-export default Home
+export default Home;

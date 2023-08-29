@@ -1,5 +1,5 @@
 'use client';
-import PrimaryContainer from '@/composables/PrimaryContainer';
+import PrimaryContainer from '@/composables/containers/PrimaryContainer';
 import { Box } from '@chakra-ui/react';
 
 const ToolChain = () => {

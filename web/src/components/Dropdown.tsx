@@ -2,7 +2,10 @@ import * as React from 'react';
 import { ChevronDownIcon } from '@chakra-ui/icons';
 import { Menu, MenuButton, Button, MenuList, Box } from '@chakra-ui/react';
 
-export const Dropdown = (props: { children: React.ReactNode }) => {
+export const Dropdown = (props: {
+  children: React.ReactNode;
+  title: string;
+}) => {
   return (
     <Box>
       <Menu>
@@ -18,7 +21,7 @@ export const Dropdown = (props: { children: React.ReactNode }) => {
           borderRadius={'md'}
           p={'1.4rem'}
         >
-          Geoffery
+          {props.title}
         </MenuButton>
         <MenuList>{props.children}</MenuList>
       </Menu>

@@ -1,15 +1,11 @@
 'use client';
 import { Box, Flex, MenuItem } from '@chakra-ui/react';
 import SideNav from '@/components/SideNav';
-import { Dropdown } from '@/components/Dropdown';
 import { Avatar } from '@/components/Avatar';
 import { useSession } from 'next-auth/react';
+import AgentsDropdown from '@/composables/complex/AgentDropdown';
 
-export default function PrimaryContainer({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+const PrimaryContainer = ({ children }: { children: React.ReactNode }) => {
   const { data: session } = useSession();
   return (
     <Box p={4}>
@@ -20,18 +16,14 @@ export default function PrimaryContainer({
               username={session?.user?.name || ''}
               image={session?.user?.image || ''}
             />
-            <Dropdown>
-              <MenuItem>Download</MenuItem>
-              <MenuItem>Create a Copy</MenuItem>
-              <MenuItem>Mark as Draft</MenuItem>
-              <MenuItem>Delete</MenuItem>
-              <MenuItem>Attend a Workshop</MenuItem>
-            </Dropdown>
+            <AgentsDropdown />
             <SideNav />
           </Flex>
         </Box>
-        <Box>{children}</Box>
+        <Box w="100%">{children}</Box>
       </Flex>
     </Box>
   );
-}
+};
+
+export default PrimaryContainer;

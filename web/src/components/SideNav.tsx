@@ -59,27 +59,28 @@ function SideNavItem({
   isActive,
 }: {
   text: string;
-  link :string
+  link: string;
   icon: any;
   isActive?: boolean;
 }) {
   return (
-    <Flex
-      alignItems={'center'}
-      gap={2}
-      borderRadius={'md'}
-      backgroundColor={isActive ? 'black' : ''}
-      py={'2'}
-      px={'4'}
-      cursor={'pointer'}
-      _hover={{
-        backgroundColor: isActive ? '' : 'blackAlpha.300',
-      }}
-    >
-      <FontAwesomeIcon icon={icon} color={isActive ? 'white' : 'black'} />
-      <Link href={link}>
+    <Link href={link}>
+      <Flex
+        alignItems={'center'}
+        gap={2}
+        borderRadius={'md'}
+        backgroundColor={isActive ? 'black' : ''}
+        py={'2'}
+        px={'4'}
+        cursor={'pointer'}
+        _hover={{
+          backgroundColor: isActive ? '' : 'blackAlpha.300',
+        }}
+      >
+        <FontAwesomeIcon icon={icon} color={isActive ? 'white' : 'black'} />
+
         <Text color={isActive ? 'white' : 'black'}>{text}</Text>
-      </Link>
-    </Flex>
+      </Flex>
+    </Link>
   );
 }
