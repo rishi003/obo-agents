@@ -14,7 +14,7 @@ class User(DBBaseModel):
         image (String): The image of the user
     """
 
-    __tablename__ = 'users'
+    __tablename__ = 'User'
 
     id = Column(String, primary_key=True)
     name = Column(String)

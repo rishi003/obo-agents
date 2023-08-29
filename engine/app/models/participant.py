@@ -12,10 +12,10 @@ class Participant(DBBaseModel):
         chatId (String): The identifier of the associated chat.
     """
 
-    __tablename__ = 'participants'
+    __tablename__ = 'Participant'
     id = Column(String, primary_key=True)
-    userId = Column(String, ForeignKey('users.id'))
-    chatId = Column(String, ForeignKey('chats.id'))
+    userId = Column(String, ForeignKey('User.id'))
+    chatId = Column(String, ForeignKey('Chat.id'))
 
     def __repr__(self):
         """

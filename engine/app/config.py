@@ -5,7 +5,7 @@ class Config:
     SPLIT_CHUNK_SIZE = 500
     SPLIT_CHUNK_OVERLAP = 100
 
-    DATABASE_URL = "sqlite:///obo-agents.db"
+    DATABASE_URL = "postgresql+psycopg2://postgres:postgres@localhost/obo"
     MQTT_BROKER_URL = "amqp://localhost"
     MQTT_BACKEND_URL = "rpc://localhost"
 

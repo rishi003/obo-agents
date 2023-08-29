@@ -11,7 +11,7 @@ class Chat(DBBaseModel):
         name (String): The name of the chat.
     """
 
-    __tablename__ = 'chats'
+    __tablename__ = 'Chat'
 
     id = Column(String, primary_key=True)
     name = Column(String)

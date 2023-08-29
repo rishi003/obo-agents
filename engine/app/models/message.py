@@ -17,11 +17,11 @@ class Message(DBBaseModel):
         totalCost (Float): The total cost of the message
     """
 
-    __tablename__ = 'messages'
+    __tablename__ = 'Message'
 
     id = Column(String, primary_key=True)
-    userId = Column(String, ForeignKey('users.id'))
-    chatId = Column(String, ForeignKey('chats.id'))
+    userId = Column(String, ForeignKey('User.id'))
+    chatId = Column(String, ForeignKey('Chat.id'))
     content = Column(String)
     byAgent = Column(Boolean, default=False)
     inputTokens = Column(Integer, default=0)

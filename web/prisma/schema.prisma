@@ -28,14 +28,17 @@ model Account {
 }
 
 model User {
-  id            String    @id @default(cuid())
+  id            String    @id @default(uuid())
   name          String?
   email         String?   @unique
   emailVerified DateTime?
   image         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
   accounts      Account[]
   messages      Message[]
   participants  Participant[]
+  agents        Agent[]
 }
 
 model VerificationToken {
@@ -47,25 +50,41 @@ model VerificationToken {
 }
 
 model Chat {
-  id           String @id @default(uuid())
-  name         String
+  id            String @id @default(uuid())
+  name          String
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
   messages     Message[]
   participants Participant[]
 }
 
 model Message {
-  id      String @id @default(uuid())
-  userId  String
-  chatId  String
-  content String
+  id            String @id @default(uuid())
+  userId        String
+  chatId        String
+  content       String
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
   user    User @relation(fields: [userId], references: [id], onDelete: Cascade)
   chat    Chat @relation(fields: [chatId], references: [id], onDelete: Cascade)
 }
 
+model Agent {
+  id            String @id @default(uuid())
+  name          String
+  userId        String
+  isDeleted     Boolean
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  user          User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
 model Participant {
-  id      String @id @default(uuid())
-  userId  String
-  chatId  String
+  id            String @id @default(uuid())
+  userId        String
+  chatId        String
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
   user    User @relation(fields: [userId], references: [id], onDelete: Cascade)
   chat    Chat @relation(fields: [chatId], references: [id], onDelete: Cascade)
 }

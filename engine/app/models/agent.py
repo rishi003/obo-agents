@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, Boolean
+from sqlalchemy import Column, String, Boolean, ForeignKey
 
 from app.models.base_model import DBBaseModel
 
@@ -13,10 +13,10 @@ class Agent(DBBaseModel):
         isDeleted (Boolean): The flag associated for agent deletion
     """
 
-    __tablename__ = 'agents'
+    __tablename__ = 'Agent'
 
     id = Column(String, primary_key=True)
-    userId = Column(String)
+    userId = Column(String, ForeignKey('User.id'))
     name = Column(String)
     isDeleted = Column(Boolean, default = False)
 

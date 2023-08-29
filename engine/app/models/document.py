@@ -13,7 +13,7 @@ class Document(DBBaseModel):
         type (String): The type of the document (e.g., pdf, txt, docx).
     """
 
-    __tablename__ = 'documents'
+    __tablename__ = 'Document'
 
     id = Column(String, primary_key=True)
     userId = Column(String)
