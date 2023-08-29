@@ -1,7 +1,7 @@
 import client from '../client';
 
-export const getUser = (userId: string) => {
-  return client.get(`/users/get/${userId}`);
+export const getUserFromEmail = (email: string) => {
+  return client.get(`/users/get/${email}`);
 };
 
 export const createAgent = (name: string, userId: string) => {

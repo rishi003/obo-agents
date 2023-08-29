@@ -1,4 +1,5 @@
 import uuid
+import urllib.parse
 
 from fastapi import APIRouter
 from fastapi import HTTPException, status
@@ -46,10 +47,10 @@ def create_user(user: UserIn):
     db.session.commit()
     return db_user
 
-@router.get("/get/{user_id}", response_model=UserOut, responses={404: {"detail": "user not found"}})
-def get_agent(user_id: str):
+@router.get("/get/{user_email}", response_model=UserOut, responses={404: {"detail": "user not found"}})
+def get_agent(user_email: str):
     """
-        Get a user by ID
+        Get a user by Email
 
         Args:
             user_id (str): Identifier of the User to retrieve
@@ -62,7 +63,7 @@ def get_agent(user_id: str):
     """
 
     if (db_user := db.session.query(User)
-            .filter(User.id == user_id)
+            .filter(User.email == urllib.parse.unquote(user_email))
             .first()):
         return db_user
     else:
