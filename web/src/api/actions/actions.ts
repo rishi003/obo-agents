@@ -33,10 +33,15 @@ export const uploadDocument = (
   fileName: string,
   fileType: string
 ) => {
-  return client.post(`/documents/upload/${userId}`, {
-    file: file,
-    name: fileName,
-    type: fileType,
+  const formData = new FormData();
+  formData.append('file', file);
+  formData.append('name', fileName);
+  formData.append('type', fileType);
+
+  return client.post(`/documents/upload/${userId}`, formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
   });
 };
 
