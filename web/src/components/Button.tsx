@@ -17,7 +17,7 @@ export default function Button(props: {
       border={'2px'}
       borderRadius={'md'}
       p={'1.4rem'}
-      borderColor={props.type === 'solid' ? '' : 'blackAlpha.800'}
+      borderColor={'blackAlpha.800'}
       _hover={{
         bgColor: props.type === 'solid' ? 'white' : 'blackAlpha.800',
         color: props.type === 'solid' ? 'blackAlpha.800' : 'white',

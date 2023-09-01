@@ -8,7 +8,7 @@ interface Agent {
 
 interface AgentState {
   agents: Agent[];
-  activeAgent: Agent | null;
+  activeAgent: Agent | undefined;
   addAgent: (agent: Agent) => void;
   removeAgent: (id: string) => void;
   setActiveAgent: (id: string) => void;
@@ -19,7 +19,7 @@ const useAgentStore = create<AgentState>()(
     persist(
       (set) => ({
         agents: [],
-        activeAgent: null,
+        activeAgent: undefined,
         addAgent: (agent) =>
           set((state) => ({ agents: [...state.agents, agent] })),
         removeAgent: (id) =>

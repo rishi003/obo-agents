@@ -70,7 +70,7 @@ function SideNavItem({
         gap={2}
         borderRadius={'md'}
         backgroundColor={isActive ? 'black' : ''}
-        py={'2'}
+        py={'3'}
         px={'4'}
         cursor={'pointer'}
         _hover={{

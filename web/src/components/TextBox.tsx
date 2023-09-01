@@ -10,7 +10,7 @@ import {
 import { EyeIcon, EyeSlashIcon, KeyIcon } from '@heroicons/react/24/outline';
 import { useState } from 'react';
 
-export default function TextBox(props: {
+interface TextBoxProps {
   isInValid?: boolean;
   type: 'email' | 'password' | 'text';
   name: string;
@@ -20,16 +20,20 @@ export default function TextBox(props: {
   rightIcon?: any;
   state?: 'error' | 'success';
   errorText?: string;
-}) {
+}
+
+export default function TextBox(props: TextBoxProps) {
   const [visible, setVisible] = useState(false);
   const [errorTextVisible, setErrorTextVisible] = useState(true);
   const onFocusChange = () => {
     setErrorTextVisible((errorTextVisible) => !errorTextVisible);
   };
 
-  const leftIcon = props.leftIcon && React.cloneElement(props.leftIcon, {
-    height: 23,
-  });
+  const leftIcon =
+    props.leftIcon &&
+    React.cloneElement(props.leftIcon, {
+      height: 23,
+    });
 
   const rightIcon =
     props.rightIcon &&

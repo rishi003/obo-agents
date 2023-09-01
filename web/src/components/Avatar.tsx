@@ -26,8 +26,8 @@ export const Avatar = ({
           icon={faPowerOff}
           style={{
             position: 'absolute',
-            bottom: -8,
-            right: -8,
+            bottom: -2,
+            right: -2,
             cursor: 'pointer',
             backgroundColor: 'white',
             borderRadius: '50%',
