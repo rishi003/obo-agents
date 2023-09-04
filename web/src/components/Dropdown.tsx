@@ -4,7 +4,7 @@ import { Menu, MenuButton, Button, MenuList, Box } from '@chakra-ui/react';
 
 export const Dropdown = (props: {
   children: React.ReactNode;
-  title: string;
+  title: string | undefined;
 }) => {
   return (
     <Box>

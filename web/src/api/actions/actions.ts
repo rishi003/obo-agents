@@ -70,7 +70,7 @@ export const createChat = (userId: string) => {
 };
 
 export const getChatsForUser = (userId: string) => {
-  return client.get(`/chats/get/${userId}`);
+  return client.get(`/chats/get?user_id=${userId}`);
 };
 
 export const getChatMessages = (chatId: string) => {

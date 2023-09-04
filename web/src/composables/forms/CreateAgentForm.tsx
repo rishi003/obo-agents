@@ -33,7 +33,6 @@ const CreateAgentForm = (props: {
     createAgent(values.name, userId).then((res) => {
       agentStore.addAgent({ id: res.data.id, name: res.data.name });
       agentStore.setActiveAgent(res.data.id);
-      console.log(agentStore);
       props.onClose();
     });
   };

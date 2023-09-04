@@ -29,8 +29,8 @@ const PrimaryContainer = ({ children }: { children: React.ReactNode }) => {
     }
   }, [session]);
   return (
-    <Box p={4}>
-      <Flex>
+    <Box p={4} minH="100vh">
+      <Flex minH="100vh">
         <Box me={'8'}>
           <Flex direction={'column'} gap={'16'}>
             <Avatar

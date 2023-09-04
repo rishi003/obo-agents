@@ -22,7 +22,7 @@ const ValidatedTextField: React.FC<ValidatedTextFieldProps> = ({
   return (
     <Field name={name}>
       {({ field, form, meta }: any) => (
-        <FormControl isInvalid={form.errors[name] && form.touched[name]} mt={4}>
+        <FormControl isInvalid={form.errors[name] && form.touched[name]}>
           <FormLabel htmlFor={name}>{label}</FormLabel>
           <Input
             {...field}

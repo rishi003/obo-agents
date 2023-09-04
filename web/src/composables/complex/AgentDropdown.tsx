@@ -5,34 +5,36 @@ import { MenuItem, useDisclosure } from '@chakra-ui/react';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import CreateAgentForm from '../forms/CreateAgentForm';
+import { useEffect, useState } from 'react';
 
 const AgentsDropdown = () => {
   const agent = useAgentStore((state) => state.activeAgent);
+  const [ready, setReady] = useState(false);
 
-  console.log(agent);
+  useEffect(() => {
+    if (agent?.name) {
+      setReady(true);
+    }
+  }, [agent]);
 
   const { isOpen, onClose, onOpen } = useDisclosure();
 
-  if (agent?.name) {
-    return (
-      <Dropdown title={agent.name}>
-        <MenuItem>Change</MenuItem>
-      </Dropdown>
-    );
-  } else {
-    return (
-      <>
-        <Button
-          rightIcon={<FontAwesomeIcon icon={faPlus} />}
-          type="solid"
-          onClick={onOpen}
-        >
-          Add Agent
-        </Button>
-        <CreateAgentForm isOpen={isOpen} onClose={onClose} onOpen={onOpen} />
-      </>
-    );
-  }
+  return ready ? (
+    <Dropdown title={agent?.name}>
+      <MenuItem>Change</MenuItem>
+    </Dropdown>
+  ) : (
+    <>
+      <Button
+        rightIcon={<FontAwesomeIcon icon={faPlus} />}
+        type="solid"
+        onClick={onOpen}
+      >
+        Add Agent
+      </Button>
+      <CreateAgentForm isOpen={isOpen} onClose={onClose} onOpen={onOpen} />
+    </>
+  );
 };
 
 export default AgentsDropdown;

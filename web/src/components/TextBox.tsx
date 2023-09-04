@@ -43,7 +43,7 @@ export default function TextBox(props: TextBoxProps) {
 
   if (props.type === 'password') {
     return (
-      <Flex direction={'column'}>
+      <Flex direction={'column'} w={'100%'}>
         <InputGroup>
           <InputLeftElement pointerEvents="none">
             <KeyIcon height={'23'} />
@@ -78,7 +78,7 @@ export default function TextBox(props: TextBoxProps) {
     );
   } else {
     return (
-      <Flex direction={'column'}>
+      <Flex direction={'column'} w={'100%'}>
         <InputGroup>
           {props.leftIcon ? (
             <InputLeftElement pointerEvents="none" py={'6'}>
