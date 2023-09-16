@@ -1,5 +1,9 @@
 'use client';
-import { createChat, getChatsForUser } from '@/api/actions/actions';
+import {
+  createChat,
+  createMessage,
+  getChatsForUser,
+} from '@/api/actions/actions';
 import Button from '@/components/Button';
 import TextBox from '@/components/TextBox';
 import ValidatedTextField from '@/components/ValidatedTextBox';
@@ -36,7 +40,11 @@ const Interactions = () => {
   }, []);
 
   const messageSubmit = () => {
-    console.log(message);
+    activeChat?.id &&
+      createMessage(activeChat?.id, message, userId).then((res) => {
+        console.log(res);
+        setMessage('');
+      });
   };
 
   const createChatSubmit = (values: any, actions: any) => {

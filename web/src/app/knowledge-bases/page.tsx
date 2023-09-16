@@ -5,6 +5,7 @@ import PrimaryContainer from '@/composables/containers/PrimaryContainer';
 import useUserStore from '@/state/store/user.store';
 import {
   Box,
+  FormControl,
   Grid,
   Input,
   Tab,
@@ -56,15 +57,18 @@ const KnowledgeBases = () => {
               <Box>
                 <Box>
                   <form onSubmit={formik.handleSubmit}>
-                    <Input
-                      type="file"
-                      name="file"
-                      onChange={(e) => {
-                        formik.setFieldValue('file', e.target.files![0]);
-                        setFileName(e.target.files![0].name);
-                        setFileType(e.target.files![0].type.split('/')[1]);
-                      }}
-                    />
+                    <FormControl>
+                      <Input
+                        type="file"
+                        name="file"
+                        onChange={(e) => {
+                          formik.setFieldValue('file', e.target.files![0]);
+                          setFileName(e.target.files![0].name);
+                          setFileType(e.target.files![0].type.split('/')[1]);
+                        }}
+                      />
+                    </FormControl>
+
                     <Button isSubmit type="solid">
                       Upload
                     </Button>
