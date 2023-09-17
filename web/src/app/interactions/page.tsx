@@ -23,8 +23,14 @@ import { Form, Formik } from 'formik';
 import { useEffect, useState } from 'react';
 import * as Yup from 'yup';
 
+interface Message {
+  content: string;
+  byAgent: boolean;
+}
+
 const Interactions = () => {
   const [message, setMessage] = useState('');
+  const [messages, setMessages] = useState<Message[]>([]);
   const userId = useUserStore((state) => state.id);
   const { chats, setActiveChat, setChats, activeChat } = useChatStore();
 
@@ -40,9 +46,13 @@ const Interactions = () => {
   }, []);
 
   const messageSubmit = () => {
+    setMessages((prev) => [...prev, { content: message, byAgent: false }]);
     activeChat?.id &&
       createMessage(activeChat?.id, message, userId).then((res) => {
-        console.log(res);
+        setMessages((prev) => [
+          ...prev,
+          { content: res.data.content, byAgent: true },
+        ]);
         setMessage('');
       });
   };
@@ -92,11 +102,28 @@ const Interactions = () => {
                 p={2}
                 borderRadius={'md'}
               >
-                chat content
+                {messages.map((message, index) => (
+                  <Flex alignItems={'center'}>
+                    <Box me={2}>{message.byAgent ? '' : 'You: '}</Box>
+                    <Box
+                      key={index}
+                      bgColor={message.byAgent ? 'blackAlpha.300' : ''}
+                      padding={'2'}
+                      borderRadius={'md'}
+                    >
+                      {message.content}
+                    </Box>
+                  </Flex>
+                ))}
               </Box>
               <Box flex={1}>
                 <Flex direction={'row'} gap={2} alignItems={'center'} mb={6}>
-                  <TextBox name="message" type="text" onChange={setMessage} />
+                  <TextBox
+                    name="message"
+                    type="text"
+                    onChange={setMessage}
+                    value={message}
+                  />
                   <Button
                     type="solid"
                     isSubmit={true}

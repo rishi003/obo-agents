@@ -20,6 +20,7 @@ interface TextBoxProps {
   rightIcon?: any;
   state?: 'error' | 'success';
   errorText?: string;
+  value?: string;
 }
 
 export default function TextBox(props: TextBoxProps) {
@@ -94,6 +95,7 @@ export default function TextBox(props: TextBoxProps) {
             onFocus={onFocusChange}
             onBlur={onFocusChange}
             name={props.name}
+            value={props.value}
             onChange={(e) => {
               props.onChange?.(e.target.value);
             }}
